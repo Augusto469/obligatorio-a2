@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 using namespace std;
 
 struct Node {
@@ -25,22 +26,27 @@ class HashAbierto {
         }
 
     public:
-        HashAbierto(int size){
-            arr = new Node*[size]();
+        HashAbierto(int _size){
+            arr = new Node*[_size]();
+            size = _size;
         }
 
         void insert(string email) {
-            int position = hash(email);    
-
+            int position = hash(email) % size;
             if(!exists(email)) {
                 Node* toInsert = new Node(email);
-                toInsert->next = arr[position];
-                arr[position]->next = toInsert;
+                if(arr[position] == nullptr){
+                    arr[position] = toInsert;
+                }
+                else{
+                    toInsert->next = arr[position];
+                    arr[position] = toInsert;
+                }
             }
         }
 
         bool exists(string email) {
-            int position = hash(email);  
+            int position = hash(email) % size;  
             Node* aux = arr[position];
 
             while(aux != nullptr){
@@ -54,7 +60,7 @@ class HashAbierto {
 
         int countNodes(){
             int nodes = 0;
-            for(int i = 0; i < size; i++){
+            for(int i = 0; i < this->size; i++){
                 Node* aux = arr[i];
                 while(aux != nullptr){
                     nodes++;
