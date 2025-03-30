@@ -15,7 +15,6 @@ int main()
     for(int i = 0; i < N; i++){
         string email;
         cin >> email;
-
         emails.insert(email);
     }
 

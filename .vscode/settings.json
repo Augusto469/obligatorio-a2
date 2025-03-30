@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "cassert": "cpp",
-        "xstring": "cpp"
-    },
-    "C_Cpp.errorSquiggles": "disabled"
+        "xstring": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp"
+    }
 }
