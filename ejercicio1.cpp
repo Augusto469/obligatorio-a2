@@ -7,17 +7,6 @@ using namespace std;
 
 int main()
 {
-    // int N;
-    // cin >> N;
-
-    // HashAbierto emails = HashAbierto(N);
-
-    // string email;
-    // cin >> email;
-    // emails.insert(email);
-    // cout << "inserto fuera" << endl;
-
-    // cout << emails.countNodes() << endl;
     int N;
     cin >> N;
 
