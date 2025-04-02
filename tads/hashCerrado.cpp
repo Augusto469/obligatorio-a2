@@ -7,9 +7,8 @@ class HashCerrado
 private:
     string *arr;
     int size;
-    int elements;
 
-    int hash(string key)
+    int hash(string key) // o(1) porque son hasta 20 caracteres
     {
         int h = 0;
         for (int i = 0; i < key.length(); i++)
@@ -19,7 +18,7 @@ private:
         }
     }
 
-    int hash2(string key)
+    int hash2(string key) // o(1) porque son hasta 20 caracteres
     {
         int h = 0;
         for (int i = 0; i < key.length(); i++)
@@ -32,9 +31,8 @@ private:
 public:
     HashCerrado(int _size)
     {
-        arr = new string[_size * 2]();
         size = _size * 2;
-        elements = _size;
+        arr = new string[size]();
     }
 
     void insert(string word)
@@ -44,7 +42,7 @@ public:
         bool wasInserted = false;
         while (!wasInserted)
         {
-            if (!exists(word))
+            //if (!exists(word))
             {
                 if (arr[position] == "")
                 {
@@ -82,7 +80,6 @@ public:
                     position = abs(this->hash(word) + this->hash2(word) * tries) % this->size;
                 }
             }
-            return false;
         }
     }
 };

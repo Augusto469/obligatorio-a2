@@ -16,18 +16,17 @@ int main()
         string word;
         cin >> word;
         dictionary.insert(word);
-        cout << dictionary.exists(word) << endl;
     }    
 
     int M;
     cin >> M;
     
-  /*  for (int i = 0; i < M; i++)
+    for (int i = 0; i < M; i++)
     {
         string word;
         cin >> word;
         cout << dictionary.exists(word) << endl;
-    } */
+    } 
     
     return 0;
 }
