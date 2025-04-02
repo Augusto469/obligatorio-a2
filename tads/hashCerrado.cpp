@@ -41,21 +41,20 @@ public:
     {
         int position = abs(this->hash(word)) % this->size;
         int tries = 0;
-        if (!exists(word))
+        bool wasInserted = false;
+        while (!wasInserted)
         {
-            while (tries < this->size)
+            if (!exists(word))
             {
                 if (arr[position] == "")
                 {
                     arr[position] = word;
+                    wasInserted = true;
                 }
                 else
                 {
-                    if (arr[position] != "")
-                    {
-                        tries++;
-                        position = abs(this->hash(word) + this->hash2(word) * tries) % this->size;
-                    }
+                    tries++;
+                    position = abs(this->hash(word) + this->hash2(word) * tries) % this->size;
                 }
             }
         }
@@ -77,10 +76,13 @@ public:
                 {
                     return true;
                 }
+                else
+                {
+                    tries++;
+                    position = abs(this->hash(word) + this->hash2(word) * tries) % this->size;
+                }
             }
-            tries++;
-            position = abs(this->hash(word) + this->hash2(word) * tries) % this->size;
+            return false;
         }
-        return false;
     }
 };

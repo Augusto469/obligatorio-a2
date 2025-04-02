@@ -16,24 +16,18 @@ int main()
         string word;
         cin >> word;
         dictionary.insert(word);
-    }
-    
+        cout << dictionary.exists(word) << endl;
+    }    
 
     int M;
     cin >> M;
-    HashCerrado wordList = HashCerrado(M);
-
-    for (int i = 0; i < M; i++)
+    
+  /*  for (int i = 0; i < M; i++)
     {
         string word;
         cin >> word;
-        wordList.insert(word);
-    }
-    
-    for (int i = 0; i < M; i++)
-    {
-        cout << dictionary.exists(i) << endl;
-    }
+        cout << dictionary.exists(word) << endl;
+    } */
     
     return 0;
 }
