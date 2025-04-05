@@ -14,8 +14,8 @@ private:
         for (int i = 0; i < key.length(); i++)
         {
             h = 31 * h + int(key[i]);
-            return h;
         }
+        return h; // el return estaba dentro del for y va afuera (me fijé en la ppt del curso)
     }
 
     int hash2(string key) // o(1) porque son hasta 20 caracteres
@@ -24,8 +24,8 @@ private:
         for (int i = 0; i < key.length(); i++)
         {
             h = 37 * h + int(key[i]);
-            return h; // TODO: no olvidarse de documentar
         }
+        return h; // TODO: no olvidarse de documentar. El return estaba dentro del for y va afuera
     }
 
 public:
@@ -42,37 +42,34 @@ public:
         bool wasInserted = false;
         while (!wasInserted)
         {
-            //if (!exists(word))
+            if (arr[position] == "")
             {
-                if (arr[position] == "")
-                {
-                    arr[position] = word;
-                    wasInserted = true;
-                }
-                else
-                {
-                    tries++;
-                    position = abs(this->hash(word) + this->hash2(word) * tries) % this->size;
-                }
+                arr[position] = word;
+                wasInserted = true;
+            }
+            else
+            {
+                tries++;
+                position = abs(this->hash(word) + this->hash2(word) * tries) % this->size;
             }
         }
     }
 
-    bool exists(string word)
+    int exists(string word)
     {
         int position = abs(this->hash(word)) % this->size;
         int tries = 0;
-        while (tries < this->size)
+        while (tries < size)
         {
             if (arr[position] == "")
             {
-                return false;
+                return 0;
             }
             else
             {
                 if (arr[position] == word)
                 {
-                    return true;
+                    return 1;
                 }
                 else
                 {
