@@ -40,17 +40,18 @@ void heapify(int* arr, int i, int N) {
 }
 
 void BuildMaxHeap(int* arr, int N) {
-    for (int i = floor(N/2); i > 0; i--) {
+    for (int i = N/2; i > 0; i--) {
         heapify(arr, i, N);
     }
 }
 
 void heapsort(int* arr, int N) {
     BuildMaxHeap(arr, N);
+    int heapSize = N;
     for (int i = N; i > 1; i--) {
         swap(1, i, arr);
-        N = N - 1;
-        heapify(arr, 1, N);
+        heapSize--;
+        heapify(arr, 1, heapSize);
     }
 }
 
@@ -60,7 +61,7 @@ int main() {
 
     int* elementos = new int[N+1]();
 
-    for (int i = 1; i <= N; i++) { // ARRANCA EN 1 !!
+    for (int i = 1; i <= N; i++) {
         int element;
         cin >> element;
         elementos[i] = element;

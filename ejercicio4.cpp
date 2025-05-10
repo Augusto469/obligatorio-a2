@@ -4,37 +4,35 @@ using namespace std;
 
 int main(){
     int V;
-    cin << V;
+    cin >> V;
     
     int E;
-    cin << E;
+    cin >> E;
 
-    Grafo graph = new Grafo(V);
-
+    Graph graph = Graph(V);
     for (int i = 0; i < E; i++)
     {
         int v;
-        cin << v;
+        cin >> v;
 
         int w;
-        cin << w;
+        cin >> w;
 
         int c;
-        cin << c;
+        cin >> c;
 
-        graph.insertEdge(v,w,c);
+        graph.insertEdge(v-1,w-1,c);
     }
-    
+
     int N;
-    cin << N;
+    cin >> N;
 
     for (int i = 0; i < N; i++)
     {
         int origin;
-        cin << origin;
-
-        dijkstra(graph,origin);
+        cin >> origin;
+        graph.dijkstra(origin-1);
     }
-    
+
     return 0;
 }

@@ -1,26 +1,29 @@
 #include <iostream>
+#include <climits>
+#include "heap.cpp"
 using namespace std;
 
-struct Edge {
-    int origin;
-    int destiny;
-    int weight;
-    Edge* next;
-}
-
-class Graph {
+class Graph
+{
     private:
         int V;
-        Edge** adjList;
+        Edge **adjList;
 
-    public:
-        Graph(int _V) {
-            V = _V;
-            adjList = new Edge*[_V]();
+        Edge *getNeighbors(int vertex)
+        {
+            return adjList[vertex];
         }
 
-        void insertEdge(int v, int w, int c){
-            Edge newEdge = new Edge();
+    public:
+        Graph(int _V)
+        {
+            V = _V;
+            adjList = new Edge *[_V]();
+        }
+
+        void insertEdge(int v, int w, int c)
+        {
+            Edge* newEdge = new Edge();
 
             newEdge->origin = v;
             newEdge->destiny = w;
@@ -30,48 +33,61 @@ class Graph {
             adjList[v] = newEdge;
         }
 
-        void dijkstra(Grafo graph, int _origin){
-            bool* visited = new bool[V];
-            int* cost = new int[V];
-            int* cameFrom = new int[V];
+        void dijkstra(int _origin)
+        {
+           // bool *visited = new bool[V];
+            int *cost = new int[V];
 
             for (int i = 0; i < V; i++)
             {
-                visited[i] = false;
-                cost[i] = 9999999999;
-                cameFrom[i] = -1;
+               // visited[i] = false;
+                cost[i] = INT_MAX;
             }
-            
-            visited[_origin] = true;
-            cost[_origin] = 0
 
-            // crear cola de prioridad
-            Heap queue = new Heap(); // PROGRAMAR HEAP
+            cost[_origin] = 0;
 
-            // cargarla con los vecinos del origen
-            Edge neighbors = graph.getNeighbors(_origin); // PROGRAMAR GETNEIGHBORS
+            Heap queue = Heap(V*V);
 
-            
+            Edge start;
+            start.origin = _origin;
+            start.destiny = _origin;
+            start.weight = 0;
 
-
-
-
-
-
-
-
-
-
+            queue.insert(start);
             
 
+            while (!queue.isEmpty())
+            {
+                Edge notProcesed = queue.removeMin();
 
-            // mientras la cola no esté vacía
-            while(!queue.isEmpty()){ // PROGRAMAR ISEMPTY
-                // tomar el vértice de menor costo no procesado
-                Edge notProcesed = queue.dequeue();
+                if (notProcesed.weight > cost[notProcesed.destiny]) continue;
+                //visited[notProcesed.destiny] = true;
 
-                // y realizar el algoritmo (ajustar los arrays visited, cost y cameFrom)
+                Edge *neighbors = getNeighbors(notProcesed.destiny);
+                while (neighbors != nullptr)
+                {
 
+                    if(/*!visited[neighbors->destiny] && */ cost[notProcesed.destiny] + neighbors->weight < cost[neighbors->destiny]){
+                        cost[neighbors->destiny] = cost[notProcesed.destiny] + neighbors->weight;
+                        Edge neighbor;
+                        neighbor.origin = notProcesed.destiny;
+                        neighbor.destiny = neighbors->destiny;
+                        neighbor.weight = cost[neighbors->destiny];
+                        queue.insert(neighbor);
+                    }
+                    neighbors = neighbors->next;
+                }
+            }
 
+            // Imprimo datos
+
+            for (int i = 0; i < V; i++)
+            {
+                if (i == _origin || cost[i] == INT_MAX) {
+                    cout << -1 << endl;
+                } else {
+                    cout << cost[i] << endl;
+                }
+            }
         }
-}
+};
